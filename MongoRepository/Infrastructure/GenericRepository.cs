@@ -48,17 +48,19 @@ namespace MongoRepository.Infrastructure
 
         public T Single(System.Linq.Expressions.Expression<Func<T, bool>> expression)
         {
-            return All<T>().Where(expression).SingleOrDefault();
+
+
+            return _unitOfWork.Db.GetCollection<T>(typeof(T).Name).AsQueryable().Where(expression).SingleOrDefault();
         }
 
-        public IQueryable<T> All<T>()
+        public IEnumerable<T> All()
         {
-            return _unitOfWork.Db.GetCollection<T>(typeof(T).Name).AsQueryable();
+            return _unitOfWork.Db.GetCollection<T>(typeof(T).Name).AsQueryable().AsEnumerable().ToList();
         }
 
-        public IQueryable<T> All<T>(int page, int pageSize)
+        public IEnumerable<T> All(int page, int pageSize)
         {
-            return PagingExtensions.Page(All<T>(), page, pageSize);
+            return PagingExtensions.Page(_unitOfWork.Db.GetCollection<T>(typeof(T).Name).AsQueryable(), page, pageSize).AsEnumerable().ToList();
         }
 
         public ReturnData Add(T item)

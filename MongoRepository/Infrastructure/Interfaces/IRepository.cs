@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using MongoRepository.Infrastructure.Model;
 using MongoDB.Driver;
+using MongoRepository.Infrastructure.Model;
 
 namespace MongoRepository.Infrastructure.Interfaces
 {
@@ -18,12 +19,14 @@ namespace MongoRepository.Infrastructure.Interfaces
 
         T Single(Expression<Func<T, bool>> expression);
 
-        System.Linq.IQueryable<T> All<T>();
+        IEnumerable<T> All();
 
-        System.Linq.IQueryable<T> All<T>(int page, int pageSize);
+        IEnumerable<T> All(int page, int pageSize);
 
         ReturnData Add(T item);
+
         void AddRange(IEnumerable<T> items);
+
         //void Add<T>(IEnumerable<T> items) where T : class, new();
     }
 }

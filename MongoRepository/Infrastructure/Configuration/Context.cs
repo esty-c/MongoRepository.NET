@@ -16,7 +16,7 @@ namespace MongoRepository.Infrastructure.Configuration
 
         public Context()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["Context"].ConnectionString;
             var mongoUrl = new MongoUrl(connectionString);
             this.database = new MongoClient(mongoUrl).GetDatabase(mongoUrl.DatabaseName);
             //  Init();
