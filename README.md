@@ -15,12 +15,12 @@ It implements a Repository pattern on top of Official MongoDB C# driver.
 
             //Get All Data
 
-            var list = repo.All<User>();
+            var list = repo.All();
 
             //Get data using pagging
             int page = 1;
             int pageSize = 10;
-            var listWithPagging = repo.All<User>(page, pageSize);
+            var listWithPagging = repo.All(page, pageSize);
 
             //Find Single
             var singleUser = repo.Single(x => x.Name.Equals("User1"));
